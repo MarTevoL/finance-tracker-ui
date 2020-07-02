@@ -8,22 +8,48 @@ class LineChartSample2 extends StatefulWidget {
 
 class _LineChartSample2State extends State<LineChartSample2> {
   List<Color> gradientColors = [
-    const Color(0xffF5A71A),
-    const Color(0xff02d39a),
+    Colors.white,
+    Colors.black.withOpacity(0.0),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 16 / 9,
-          child: Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(18),
-                ),
-                color: Colors.grey),
+    return Container(
+      decoration: BoxDecoration(
+          color: Color(0xff0872FA), borderRadius: BorderRadius.circular(12.0)),
+      padding: EdgeInsets.only(top: 30.0),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Flexible(
+                    flex: 1,
+                    child: Text(
+                      'Stats',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    )),
+                Flexible(
+                  flex: 2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      _buildChartTimeButton(onTap: () {}, title: 'Day'),
+                      _buildChartTimeButton(onTap: () {}, title: 'Week'),
+                      _buildChartTimeButton(onTap: () {}, title: 'Month'),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          AspectRatio(
+            aspectRatio: 16 / 9,
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 26.0, left: 20.0, top: 12.0, bottom: 12),
@@ -32,8 +58,24 @@ class _LineChartSample2State extends State<LineChartSample2> {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Container _buildChartTimeButton({VoidCallback onTap, String title}) {
+    return Container(
+      alignment: Alignment.center,
+      width: 60.0,
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+      decoration: BoxDecoration(color: Colors.white.withOpacity(0.2)),
+      child: InkWell(
+        onTap: onTap,
+        child: Text(
+          title,
+          style: TextStyle(color: Colors.white),
         ),
-      ],
+      ),
     );
   }
 
@@ -47,9 +89,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         bottomTitles: SideTitles(
           showTitles: true,
           textStyle: const TextStyle(
-              color: Color(0xff68737d),
-              fontWeight: FontWeight.w500,
-              fontSize: 12),
+              color: Colors.white70, fontWeight: FontWeight.w500, fontSize: 12),
           getTitles: (value) {
             switch (value.toInt()) {
               case 1:
@@ -67,7 +107,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
         leftTitles: SideTitles(
           showTitles: true,
           textStyle: const TextStyle(
-            color: Color(0xff67727d),
+            color: Colors.white70,
             fontWeight: FontWeight.normal,
             fontSize: 12,
           ),
@@ -93,8 +133,8 @@ class _LineChartSample2State extends State<LineChartSample2> {
       borderData: FlBorderData(
           show: true,
           border: Border(
-            left: BorderSide(width: 0.5),
-            bottom: BorderSide(width: 0.5),
+            left: BorderSide(width: 0.5, color: Colors.white),
+            bottom: BorderSide(width: 0.5, color: Colors.white),
           )),
       minX: 0,
       maxX: 11,
@@ -112,7 +152,7 @@ class _LineChartSample2State extends State<LineChartSample2> {
             FlSpot(11, 4),
           ],
           isCurved: true,
-          colors: gradientColors,
+          colors: [Colors.white],
           barWidth: 3,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -125,10 +165,11 @@ class _LineChartSample2State extends State<LineChartSample2> {
             ),
           ),
           belowBarData: BarAreaData(
-            show: true,
-            colors:
-                gradientColors.map((color) => color.withOpacity(0.1)).toList(),
-          ),
+              show: true,
+              colors: [Colors.white.withOpacity(0.6), Colors.transparent],
+              gradientFrom: Offset(0.5, 0),
+              gradientTo: Offset(0.5, 1),
+              gradientColorStops: [0.1, 1]),
         ),
       ],
     );

@@ -1,6 +1,7 @@
 import 'package:finance_tracker_ui/income_expense_card.dart';
 import 'package:finance_tracker_ui/line_chart_sample.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _moneySaved = 2380;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +65,81 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            Container(child: LineChartSample2()),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 50.0),
+              child: LineChartSample2(),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey[500].withAlpha(120),
+                      offset: Offset(10, 10),
+                      spreadRadius: 1.0,
+                      blurRadius: 10.0),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 26.0),
+              child: Stack(
+                overflow: Overflow.visible,
+                children: <Widget>[
+                  Container(
+                    width: double.infinity,
+                    height: 120.0,
+                    padding: EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: Color(0xff0872FA),
+                      borderRadius: BorderRadius.circular(12.0),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey[500].withAlpha(120),
+                            offset: Offset(10, 10),
+                            spreadRadius: 1.0,
+                            blurRadius: 10.0),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 110.0, top: 10.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Congratulation!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          Text(
+                            'You have saved \$$_moneySaved \non this month.',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 12.0,
+                    bottom: 12.0,
+                    child: Container(
+                      child: SvgPicture.asset(
+                        'images/coin_pig.svg',
+                        height: 150.0,
+                        width: 150.0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
