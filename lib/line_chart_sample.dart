@@ -2,6 +2,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class LineChartSample2 extends StatefulWidget {
+  const LineChartSample2({Key key, this.onTap}) : super(key: key);
+  final VoidCallback onTap;
+
   @override
   _LineChartSample2State createState() => _LineChartSample2State();
 }
@@ -14,51 +17,57 @@ class _LineChartSample2State extends State<LineChartSample2> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Color(0xff0872FA), borderRadius: BorderRadius.circular(12.0)),
-      padding: EdgeInsets.only(top: 30.0),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Flexible(
+    return Material(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      color: Color(0xff0872FA),
+      child: Padding(
+        padding: EdgeInsets.only(top: 20.0),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Flexible(
                     flex: 1,
-                    child: Text(
-                      'Stats',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold),
-                    )),
-                Flexible(
-                  flex: 2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      _buildChartTimeButton(onTap: () {}, title: 'Day'),
-                      _buildChartTimeButton(onTap: () {}, title: 'Week'),
-                      _buildChartTimeButton(onTap: () {}, title: 'Month'),
-                    ],
+                    child: InkWell(
+                      onTap: widget.onTap,
+                      child: Text(
+                        'Stats',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
-                )
-              ],
-            ),
-          ),
-          AspectRatio(
-            aspectRatio: 16 / 9,
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 26.0, left: 20.0, top: 12.0, bottom: 12),
-              child: LineChart(
-                mainData(),
+                  Flexible(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        _buildChartTimeButton(onTap: () {}, title: 'Day'),
+                        _buildChartTimeButton(onTap: () {}, title: 'Week'),
+                        _buildChartTimeButton(onTap: () {}, title: 'Month'),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
-          ),
-        ],
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    right: 26.0, left: 20.0, top: 12.0, bottom: 12),
+                child: LineChart(
+                  mainData(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
